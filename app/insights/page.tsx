@@ -39,10 +39,10 @@ export default function InsightsPage() {
             </h2>
           </RevealOnScroll>
           <RevealOnScroll y={32} delay={0.08} className="lg:col-span-5">
-            <p className="max-w-[46ch] text-lg leading-relaxed text-ink-soft">
+            <p className="max-w-[50ch] text-base leading-relaxed text-ink-soft">
               {featured.excerpt}
             </p>
-            <div className="mt-8 flex items-center gap-6 text-sm text-ink-soft">
+            <div className="mt-7 flex items-center gap-6 text-sm text-ink-soft">
               <time dateTime={featured.date} className="font-mono tracking-[0.14em]">
                 {formatDateShort(featured.date)}
               </time>
@@ -52,13 +52,13 @@ export default function InsightsPage() {
           </RevealOnScroll>
         </Link>
 
-        <ul className="mt-20">
+        <ul className="mt-16">
           {rest.map((story) => (
             <li key={story.slug} className="border-t border-line">
               <RevealOnScroll y={28}>
                 <Link
                   href={`/insights/${story.slug}`}
-                  className="group grid gap-4 py-8 transition-colors duration-300 hover:bg-accent/20 md:grid-cols-12 md:gap-8"
+                  className="group grid gap-4 py-7 transition-colors duration-300 hover:bg-accent/20 md:grid-cols-12 md:gap-8"
                 >
                   <time
                     dateTime={story.date}

@@ -3,7 +3,7 @@ import { navigation, utilityLinks } from "@/data/navigation";
 
 export function Wordmark() {
   return (
-    <span className="flex items-center gap-2">
+    <span className="flex items-center gap-2 text-current">
       <svg
         viewBox="0 0 24 24"
         aria-hidden="true"
@@ -14,7 +14,7 @@ export function Wordmark() {
       >
         <path d="M3 20V4l9 9 9-9v16" strokeLinecap="square" />
       </svg>
-      <span className="text-[0.95rem] font-medium tracking-[0.22em] uppercase">
+      <span className="text-sm font-semibold tracking-[0.18em] uppercase">
         Northline
       </span>
     </span>

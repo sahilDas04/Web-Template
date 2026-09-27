@@ -49,29 +49,27 @@ export default async function ProjectPage({
 
   return (
     <main id="main">
-      <section className="relative flex min-h-[80svh] flex-col justify-end bg-ink pt-[var(--nav-height)] text-white">
+      <section className="relative flex min-h-[58svh] flex-col justify-end overflow-hidden bg-brand-deep pt-[var(--nav-height)] text-white">
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-[radial-gradient(110%_80%_at_70%_18%,#2b2b2a_0%,#161615_45%,#0a0a0a_100%)]"
+          className="absolute inset-0 bg-[radial-gradient(110%_80%_at_70%_18%,#0d4a80_0%,#013253_48%,#011a2e_100%)]"
         />
-        <div className="grain absolute inset-0 opacity-[0.15] mix-blend-overlay" aria-hidden="true" />
+        <div className="grain absolute inset-0 opacity-[0.14] mix-blend-overlay" aria-hidden="true" />
 
-        <div className="relative mx-auto w-full max-w-[1600px] px-[var(--gutter)] pt-24 pb-20 md:pb-28">
-          <SectionLabel className="[&_*]:!text-white/60">
+        <div className="relative mx-auto w-full max-w-[1600px] px-[var(--gutter)] pt-20 pb-14 md:pb-20">
+          <SectionLabel className="[&_*]:!text-white/65">
             {project.index} — {project.category}
           </SectionLabel>
 
-          <RevealOnScroll y={48}>
-            <h1 className="h1 mt-10 max-w-[16ch]">{project.title}</h1>
+          <RevealOnScroll y={36}>
+            <h1 className="h1 mt-7 max-w-[20ch]">{project.title}</h1>
           </RevealOnScroll>
 
-          <RevealOnScroll y={32} delay={0.1}>
-            <p className="mt-12 max-w-[56ch] text-base leading-relaxed text-white/70 md:text-lg">
-              {project.summary}
-            </p>
+          <RevealOnScroll y={24} delay={0.08}>
+            <p className="lead mt-7 max-w-[62ch] text-white/75">{project.summary}</p>
           </RevealOnScroll>
 
-          <dl className="mt-16 grid gap-8 border-t border-white/15 pt-8 sm:grid-cols-3">
+          <dl className="mt-11 grid gap-7 border-t border-white/15 pt-7 sm:grid-cols-3">
             {[
               { label: "Location", value: project.location },
               { label: "Year", value: project.year },
@@ -79,7 +77,7 @@ export default async function ProjectPage({
             ].map((item) => (
               <div key={item.label}>
                 <dt className="eyebrow text-white/50">{item.label}</dt>
-                <dd className="mt-3 text-lg">{item.value}</dd>
+                <dd className="mt-2 text-base">{item.value}</dd>
               </div>
             ))}
           </dl>
@@ -87,23 +85,23 @@ export default async function ProjectPage({
       </section>
 
       <Section>
-        <div className="grid gap-12 lg:grid-cols-12">
+        <div className="grid gap-10 lg:grid-cols-12">
           <RevealOnScroll y={40} className="lg:col-span-5">
             <h2 className="h3">The challenge</h2>
           </RevealOnScroll>
           <RevealOnScroll y={32} delay={0.08} className="lg:col-span-7">
-            <p className="max-w-[60ch] text-lg leading-relaxed text-ink-soft">
+            <p className="max-w-[62ch] text-base leading-relaxed text-ink-soft">
               {project.challenge}
             </p>
           </RevealOnScroll>
         </div>
 
-        <div className="mt-24 grid gap-12 border-t border-line pt-16 lg:grid-cols-12">
+        <div className="mt-20 grid gap-10 border-t border-line pt-12 lg:grid-cols-12">
           <RevealOnScroll y={40} className="lg:col-span-5">
             <h2 className="h3">The approach</h2>
           </RevealOnScroll>
           <RevealOnScroll y={32} delay={0.08} className="lg:col-span-7">
-            <p className="max-w-[60ch] text-lg leading-relaxed text-ink-soft">
+            <p className="max-w-[62ch] text-base leading-relaxed text-ink-soft">
               {project.approach}
             </p>
           </RevealOnScroll>
@@ -112,29 +110,29 @@ export default async function ProjectPage({
 
       <Section className="border-t border-line">
         <SectionLabel index="01">Scope</SectionLabel>
-        <ul className="mt-14 grid gap-px border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
+        <ul className="mt-12 grid gap-px border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
           {project.scope.map((item, index) => (
-            <li key={item} className="bg-background p-8">
+            <li key={item} className="bg-background p-7">
               <RevealOnScroll y={28} delay={index * 0.05}>
                 <span className="eyebrow text-ink-soft">
                   {String(index + 1).padStart(2, "0")}
                 </span>
-                <p className="mt-5 text-lg leading-snug">{item}</p>
+                <p className="mt-4 text-base leading-snug">{item}</p>
               </RevealOnScroll>
             </li>
           ))}
         </ul>
       </Section>
 
-      <section className="bg-ink text-white">
-        <div className="mx-auto w-full max-w-[1600px] px-[var(--gutter)] py-24 md:py-32">
-          <SectionLabel index="02" className="[&_*]:!text-white/60">
+      <section className="bg-brand-deep text-white">
+        <div className="mx-auto w-full max-w-[1600px] px-[var(--gutter)] py-20 md:py-28">
+          <SectionLabel index="02" className="[&_*]:!text-white/65">
             Outcomes
           </SectionLabel>
-          <dl className="mt-16 grid gap-12 sm:grid-cols-3">
+          <dl className="mt-14 grid gap-12 sm:grid-cols-3">
             {project.metrics.map((metric, index) => (
               <RevealOnScroll key={metric.label} y={36} delay={index * 0.06}>
-                <div className="border-t border-white/20 pt-8">
+                <div className="border-t border-white/20 pt-7">
                   <dt className="h1 tabular-nums">{metric.value}</dt>
                   <dd className="eyebrow mt-4 text-white/60">{metric.label}</dd>
                 </div>

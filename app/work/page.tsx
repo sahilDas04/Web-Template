@@ -25,6 +25,7 @@ export default function WorkPage() {
         index="03"
         title="Structures that outlast their headlines."
         intro="Every project here was delivered against a live constraint — an operating asset, a fixed budget, a city that could not stop. Those constraints are the point."
+        image="/images/pages/work.jpg"
       />
 
       <Section>
@@ -72,18 +73,18 @@ export default function WorkPage() {
             {category}
           </SectionLabel>
 
-          <ul className="mt-14 grid gap-px border border-line bg-line md:grid-cols-2">
+          <ul className="mt-12 grid gap-px border border-line bg-line md:grid-cols-2">
             {items.map((project) => (
-              <li key={project.slug} className="bg-background p-8 md:p-10">
+              <li key={project.slug} className="bg-background p-7 md:p-9">
                 <RevealOnScroll y={32}>
                   <span className="eyebrow text-ink-soft">{project.year}</span>
-                  <h3 className="h3 mt-5">{project.title}</h3>
-                  <p className="mt-4 text-sm leading-relaxed text-ink-soft">
+                  <h3 className="h3 mt-4">{project.title}</h3>
+                  <p className="mt-3.5 text-sm leading-relaxed text-ink-soft">
                     {project.summary}
                   </p>
                   <Link
                     href={`/work/${project.slug}`}
-                    className="group mt-8 inline-flex items-center gap-3 text-sm font-medium"
+                    className="group mt-7 inline-flex items-center gap-3 text-sm font-medium"
                   >
                     View project
                     <Arrow className="transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1.5" />

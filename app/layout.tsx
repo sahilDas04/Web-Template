@@ -41,6 +41,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} antialiased`}
     >
       <body>
+        <a href="#main" className="skip-link">
+          Skip to content
+        </a>
         <SmoothScrollProvider>
           <Navbar />
           {children}

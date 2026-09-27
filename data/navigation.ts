@@ -7,6 +7,7 @@ export type NavChild = {
 export type NavItem = {
   label: string;
   href: string;
+  image?: string;
   children?: NavChild[];
   featured?: {
     eyebrow: string;
@@ -20,6 +21,7 @@ export const navigation: NavItem[] = [
   {
     label: "About",
     href: "/about",
+    image: "/images/pages/about.jpg",
     children: [
       {
         label: "Company",
@@ -47,6 +49,7 @@ export const navigation: NavItem[] = [
   {
     label: "Services",
     href: "/services",
+    image: "/images/pages/services.jpg",
     children: [
       {
         label: "Engineering",
@@ -84,6 +87,7 @@ export const navigation: NavItem[] = [
   {
     label: "Work",
     href: "/work",
+    image: "/images/pages/work.jpg",
     children: [
       {
         label: "Infrastructure",
@@ -116,6 +120,7 @@ export const navigation: NavItem[] = [
   {
     label: "Impact",
     href: "/impact",
+    image: "/images/pages/impact.jpg",
     children: [
       {
         label: "Sustainability",

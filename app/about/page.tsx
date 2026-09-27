@@ -48,6 +48,7 @@ export default function AboutPage() {
         index="02"
         title="Engineering what comes next."
         intro="Northline was founded on a frustration: that the organisations doing the most consequential engineering work are the least well understood. We build the systems industry depends on, and we explain them properly."
+        image="/images/pages/about.jpg"
       />
 
       <Section id="company">
@@ -114,10 +115,10 @@ export default function AboutPage() {
                       .join("")}
                   </span>
                 </div>
-                <h3 className="mt-6 text-lg font-medium tracking-tight">
+                <h3 className="mt-5 text-base font-medium tracking-tight">
                   {person.name}
                 </h3>
-                <p className="mt-2 text-sm text-ink-soft">{person.role}</p>
+                <p className="mt-1.5 text-sm text-ink-soft">{person.role}</p>
               </RevealOnScroll>
             </li>
           ))}

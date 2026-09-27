@@ -38,12 +38,12 @@ export default function ContactPage() {
 
           <div className="lg:col-span-5">
             <SectionLabel index="02">Offices</SectionLabel>
-            <ul className="mt-12">
+            <ul className="mt-10">
               {offices.map((office, index) => (
                 <li key={office.city} className="border-t border-line">
                   <RevealOnScroll y={28} delay={index * 0.05}>
-                    <div className="py-6">
-                      <h2 className="text-xl font-medium tracking-tight">
+                    <div className="py-5">
+                      <h2 className="text-lg font-medium tracking-tight">
                         {office.city}
                       </h2>
                       <p className="mt-2 text-sm text-ink-soft">

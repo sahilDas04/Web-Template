@@ -1,32 +1,34 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { gsap, prefersReducedMotion } from "@/lib/gsap";
-import { ease } from "@/lib/animations/config";
-import type { NavItem } from "@/data/navigation";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Arrow } from "@/components/ui/Arrow";
+import type { NavItem } from "@/data/navigation";
+
+const COLUMNS = 3;
 
 export function MegaMenu({
   items,
-  onNavigate,
-  solid = false,
+  onOpenChange,
 }: {
   items: NavItem[];
-  onNavigate: () => void;
-  solid?: boolean;
+  onOpenChange: (open: boolean) => void;
 }) {
   const [active, setActive] = useState<number | null>(null);
   const [open, setOpen] = useState(false);
+  const root = useRef<HTMLDivElement>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const panelRef = useRef<HTMLDivElement>(null);
 
-  const cancelClose = () => {
+  const cancelClose = useCallback(() => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
     closeTimer.current = null;
-  };
+  }, []);
 
-  useEffect(() => cancelClose, []);
+  useEffect(() => () => cancelClose(), [cancelClose]);
+
+  useEffect(() => {
+    onOpenChange(open);
+  }, [open, onOpenChange]);
 
   const show = (index: number) => {
     cancelClose();
@@ -34,109 +36,125 @@ export function MegaMenu({
     setOpen(true);
   };
 
+  const close = useCallback(() => {
+    cancelClose();
+    setOpen(false);
+    setActive(null);
+  }, [cancelClose]);
+
+  // Grace period so the pointer can travel from the trigger into the panel.
   const hide = () => {
     cancelClose();
-    closeTimer.current = setTimeout(() => {
-      setOpen(false);
-      setActive(null);
-    }, 140);
+    closeTimer.current = setTimeout(close, 120);
   };
 
-  useLayoutEffect(() => {
-    const el = panelRef.current;
-    if (!el) return;
+  // Escape closes; focus leaving the subtree closes (keyboard users otherwise
+  // have no way to dismiss the panel).
+  useEffect(() => {
+    if (!open) return;
 
-    if (prefersReducedMotion()) {
-      gsap.set(el, { autoAlpha: 1, y: 0 });
-      return;
-    }
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      const triggers = root.current?.querySelectorAll<HTMLAnchorElement>("[data-mega-trigger]");
+      triggers?.[active ?? 0]?.focus();
+      close();
+    };
 
-    gsap.fromTo(
-      el,
-      { autoAlpha: 0, y: -20 },
-      { autoAlpha: 1, y: 0, duration: 0.5, ease: ease.outExpo },
-    );
-  }, [active, open]);
+    const onPointerDown = (event: PointerEvent) => {
+      if (!root.current?.contains(event.target as Node)) close();
+    };
+
+    document.addEventListener("keydown", onKeyDown);
+    document.addEventListener("pointerdown", onPointerDown);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.removeEventListener("pointerdown", onPointerDown);
+    };
+  }, [open, active, close]);
+
+  const onBlur = (event: React.FocusEvent<HTMLDivElement>) => {
+    if (!event.currentTarget.contains(event.relatedTarget as Node | null)) close();
+  };
 
   const current = active !== null ? items[active] : null;
+  const children = current?.children ?? [];
+  const columns = Array.from(
+    { length: Math.min(COLUMNS, Math.max(children.length, 1)) },
+    (_, i) => children.slice(i * 2, i * 2 + 2),
+  );
 
   return (
-    <div className="relative" onMouseLeave={hide}>
-      <ul className="flex items-center gap-8">
+    <div ref={root} className="relative" onMouseLeave={hide} onBlur={onBlur}>
+      <ul className="flex items-center gap-7">
         {items.map((item, index) => (
           <li key={item.label}>
             <Link
               href={item.href}
+              data-mega-trigger
               aria-expanded={open && active === index}
-              aria-haspopup="true"
               onMouseEnter={() => show(index)}
               onFocus={() => show(index)}
-              className="relative text-[0.8125rem] font-medium tracking-[0.14em] uppercase"
+              onClick={close}
+              className="nav-link"
+              data-active={open && active === index}
             >
               {item.label}
-              <span
-                className={`absolute -bottom-1.5 left-0 h-px bg-current transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                  open && active === index ? "w-full" : "w-0"
-                }`}
-              />
+              {item.children && <span className="nav-caret" aria-hidden="true" />}
             </Link>
           </li>
         ))}
       </ul>
 
-      {open && current?.children && (
+      {open && current && current.children && (
         <div
-          ref={panelRef}
-          className="fixed inset-x-0 z-40 border-y border-line bg-background/95 backdrop-blur-xl transition-[top] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+          className="mega-panel fixed inset-x-0 z-40 border-t border-white/10"
           style={{
-            top: solid
-              ? "var(--nav-height-scrolled)"
-              : "var(--nav-height)",
+            top: "var(--nav-active)",
+            ["--mega-image" as string]: current.image
+              ? `url(${current.image})`
+              : "none",
           }}
         >
-          <div className="mx-auto grid max-w-[1600px] grid-cols-12 gap-8 px-[var(--gutter)] py-16">
-            <div className="col-span-7">
-              <p className="eyebrow text-ink-soft">{current.label}</p>
-              <ul className="mt-8">
-                {current.children.map((child) => (
-                  <li key={child.href}>
-                    <Link
-                      href={child.href}
-                      onClick={onNavigate}
-                      className="group flex items-baseline justify-between gap-6 border-b border-line py-5 transition-colors duration-300 hover:bg-accent/30"
-                    >
-                      <span className="h3 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-2">
-                        {child.label}
-                      </span>
-                      <span className="max-w-[24ch] text-sm text-ink-soft">
-                        {child.description}
-                      </span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <div className="relative mx-auto w-full max-w-[1600px] px-[var(--gutter)] py-9">
+            <div className="grid gap-8 md:grid-cols-12 md:gap-10">
+              <p className="eyebrow text-white/50 md:col-span-2">
+                {current.label}
+              </p>
 
-            {current.featured && (
-              <div className="col-span-5 flex flex-col justify-between border-l border-line pl-8">
-                <div>
-                  <p className="eyebrow text-ink-soft">
+              <div className="grid gap-x-8 gap-y-6 sm:grid-cols-3 md:col-span-7">
+                {columns.map((column, i) => (
+                  <ul key={i} className="space-y-1">
+                    {column.map((child) => (
+                      <li key={child.href}>
+                        <Link
+                          href={child.href}
+                          onClick={close}
+                          className="mega-link"
+                        >
+                          {child.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                ))}
+              </div>
+
+              {current.featured && (
+                <div className="border-white/15 md:col-span-3 md:border-l md:pl-8">
+                  <p className="eyebrow text-white/50">
                     {current.featured.eyebrow}
                   </p>
-                  <p className="h3 mt-6 max-w-[16ch]">
+                  <Link
+                    href={current.featured.href}
+                    onClick={close}
+                    className="group mt-3 inline-flex items-center gap-2 text-sm font-medium text-white hover:text-accent"
+                  >
                     {current.featured.title}
-                  </p>
+                    <Arrow className="shrink-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1" />
+                  </Link>
                 </div>
-                <Link
-                  href={current.featured.href}
-                  onClick={onNavigate}
-                  className="group mt-12 inline-flex w-fit items-center gap-3 text-sm font-medium"
-                >
-                  {current.featured.cta}
-                  <Arrow className="transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1.5" />
-                </Link>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
       )}

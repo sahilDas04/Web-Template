@@ -14,7 +14,7 @@ const projectTypes = [
 type Status = "idle" | "sending" | "sent" | "error";
 
 const fieldClass =
-  "w-full border-b border-line bg-transparent py-4 text-lg outline-none transition-colors duration-300 placeholder:text-ink-soft/50 focus:border-ink";
+  "w-full border-b border-line bg-transparent py-3.5 text-base outline-none transition-colors duration-300 placeholder:text-ink-soft/50 focus:border-brand";
 
 export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
@@ -35,14 +35,21 @@ export function ContactForm() {
         body: JSON.stringify(payload),
       });
 
-      if (!response.ok) throw new Error("Request failed");
+      if (!response.ok) {
+        const data = (await response.json().catch(() => null)) as {
+          error?: string;
+        } | null;
+        throw new Error(data?.error ?? "Request failed");
+      }
 
       form.reset();
       setStatus("sent");
-    } catch {
+    } catch (caught) {
       setStatus("error");
       setError(
-        "Something went wrong sending that. Please email us directly and we will pick it up.",
+        caught instanceof Error
+          ? caught.message
+          : "Something went wrong sending that. Please email us directly and we will pick it up.",
       );
     }
   }
@@ -60,7 +67,7 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="border-t border-line pt-10" noValidate>
+    <form onSubmit={onSubmit} className="border-t border-line pt-8">
       <div className="grid gap-x-10 gap-y-8 sm:grid-cols-2">
         <label className="block">
           <span className="eyebrow text-ink-soft">Name</span>
@@ -122,7 +129,7 @@ export function ContactForm() {
       </div>
 
       {error && (
-        <p role="alert" className="mt-8 text-sm text-red-700">
+        <p role="alert" className="mt-6 text-sm text-red-700">
           {error}
         </p>
       )}
@@ -130,10 +137,10 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={status === "sending"}
-        className="group mt-12 inline-flex items-center gap-4 border-b border-ink pb-2 text-sm font-medium tracking-[0.14em] uppercase transition-opacity disabled:opacity-40"
+        className="group mt-9 inline-flex items-center gap-3 rounded-full bg-brand px-7 py-4 text-sm font-semibold text-white transition-colors duration-300 hover:bg-brand-deep disabled:opacity-40"
       >
         {status === "sending" ? "Sending" : "Send"}
-        <Arrow className="transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1.5" />
+        <Arrow className="transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1" />
       </button>
     </form>
   );

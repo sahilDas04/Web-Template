@@ -1,7 +1,7 @@
 "use client";
 
 import { useLayoutEffect, useRef } from "react";
-import { gsap, prefersReducedMotion, ScrollTrigger } from "@/lib/gsap";
+import { gsap, prefersReducedMotion } from "@/lib/gsap";
 import { ease } from "@/lib/animations/config";
 
 type Mode = "line" | "word" | "char";
@@ -35,34 +35,47 @@ export function RevealText({
     const el = root.current;
     if (!el) return;
 
-    const targets = el.querySelectorAll("[data-reveal-item]");
+    // Scoped context so the tweens and their ScrollTriggers are reverted on
+    // unmount instead of outliving the route.
+    const ctx = gsap.context(() => {
+      const targets = gsap.utils.toArray<HTMLElement>("[data-reveal-item]", el);
+      if (targets.length === 0) return;
 
-    if (prefersReducedMotion()) {
-      gsap.set(targets, { yPercent: 0, opacity: 1 });
-      return;
-    }
+      if (prefersReducedMotion()) {
+        gsap.set(targets, { yPercent: 0, opacity: 1, clearProps: "transform" });
+        return;
+      }
 
-    const from = { yPercent: 110, opacity: 1 };
+      if (scrub) {
+        gsap.fromTo(targets, { yPercent: 110 }, {
+          yPercent: 0,
+          ease: ease.outExpo,
+          stagger,
+          scrollTrigger: { trigger: el, start, scrub: true },
+        });
+        return;
+      }
 
-    if (scrub) {
-      gsap.fromTo(targets, from, {
+      gsap.fromTo(targets, { yPercent: 110 }, {
         yPercent: 0,
-        ease: ease.outExpo,
+        duration,
+        delay,
         stagger,
-        scrollTrigger: { trigger: el, start, scrub: true },
+        ease: ease.outExpo,
+        scrollTrigger: { trigger: el, start, once: true },
       });
-      return;
-    }
+    }, el);
 
-    gsap.fromTo(targets, from, {
-      yPercent: 0,
-      duration,
-      delay,
-      stagger,
-      ease: ease.outExpo,
-      scrollTrigger: { trigger: el, start, once: true },
-    });
+    return () => ctx.revert();
   }, [delay, duration, scrub, stagger, start]);
+
+  const item = (children: React.ReactNode, key: React.Key) => (
+    <span className="reveal-mask" key={key}>
+      <span data-reveal-item className={classNameInner}>
+        {children}
+      </span>
+    </span>
+  );
 
   const content =
     mode === "line" ? (
@@ -74,19 +87,11 @@ export function RevealText({
         </span>
       ))
     ) : mode === "word" ? (
-      <span className="reveal-mask">
-        <span data-reveal-item className={classNameInner}>
-          {text}
-        </span>
-      </span>
+      text.split(" ").map((word, i) =>
+        item(i === 0 ? word : `\u00A0${word}`, i),
+      )
     ) : (
-      Array.from(text).map((char, i) => (
-        <span className="reveal-mask" key={i}>
-          <span data-reveal-item className={classNameInner}>
-            {char === " " ? " " : char}
-          </span>
-        </span>
-      ))
+      Array.from(text).map((char, i) => item(char === " " ? "\u00A0" : char, i))
     );
 
   return (
@@ -115,28 +120,23 @@ export function RevealOnScroll({
     const el = ref.current;
     if (!el) return;
 
-    if (prefersReducedMotion()) {
-      gsap.set(el, { clearProps: "opacity,visibility,transform" });
-      return;
-    }
+    const ctx = gsap.context(() => {
+      if (prefersReducedMotion()) {
+        gsap.set(el, { clearProps: "opacity,visibility,transform" });
+        return;
+      }
 
-    gsap.set(el, { autoAlpha: 0, y });
-
-    const tween = gsap.to(el, {
-      autoAlpha: 1,
-      y: 0,
-      duration: 0.9,
-      delay,
-      ease: ease.outExpo,
-      scrollTrigger: { trigger: el, start, once: true },
-    });
-
-    return () => {
-      tween.kill();
-      ScrollTrigger.getAll().forEach((t) => {
-        if (t.trigger === el) t.kill();
+      gsap.fromTo(el, { autoAlpha: 0, y }, {
+        autoAlpha: 1,
+        y: 0,
+        duration: 0.8,
+        delay,
+        ease: ease.outExpo,
+        scrollTrigger: { trigger: el, start, once: true },
       });
-    };
+    }, el);
+
+    return () => ctx.revert();
   }, [delay, start, y]);
 
   return (

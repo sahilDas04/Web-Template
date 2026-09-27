@@ -25,6 +25,7 @@ export default function ServicesPage() {
         index="01"
         title="Five disciplines. One delivery standard."
         intro="We work across the full lifecycle of an industrial asset — from the feasibility study that justifies it to the control system that runs it. Most of our projects sit across more than one discipline, because real assets do."
+        image="/images/pages/services.jpg"
       />
 
       <Section>
@@ -32,7 +33,7 @@ export default function ServicesPage() {
 
         <ul className="mt-16">
           {services.map((service) => (
-            <li key={service.slug} id={service.slug} className="scroll-mt-32 border-t border-line">
+            <li key={service.slug} id={service.slug} className="border-t border-line">
               <RevealOnScroll y={40}>
                 <div className="group grid gap-6 py-12 md:grid-cols-12 md:gap-8">
                   <span className="eyebrow text-ink-soft md:col-span-1">

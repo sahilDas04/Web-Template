@@ -53,6 +53,7 @@ export default function ImpactPage() {
         index="04"
         title="Engineering a better future."
         intro="We would rather report a number we can defend than a commitment we cannot. What follows is what we have actually measured, and where we are behind."
+        image="/images/pages/impact.jpg"
       />
 
       {pillars.map((pillar, index) => (
