@@ -1,95 +1,88 @@
 import type { Metadata } from "next";
-import { PageCta, PageHero, Section } from "@/components/sections/PageHero";
+import { Fragment } from "react";
+import { PageHero, Section } from "@/components/sections/PageHero";
 import { RevealOnScroll } from "@/components/animation/RevealText";
 import { SectionLabel } from "@/components/ui/SectionLabel";
+import { Arrow } from "@/components/ui/Arrow";
+import { ContactFooter } from "@/components/sections/ContactFooter";
+import { about, partner, approach, values, commitment } from "@/data/about";
 
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Northline is an engineering and technology firm building the systems heavy industry runs on.",
+    "Bhardwaj Constructions is an engineering, construction and infrastructure services company delivering civil works, electrical works, water pipeline solutions and construction material supply.",
 };
 
-const principles = [
-  {
-    title: "Evidence over assertion",
-    body: "We would rather be measured on an outcome than admired on a proposal. Every claim we make has to survive contact with an operating asset.",
-  },
-  {
-    title: "Long horizons",
-    body: "We are structured for decisions that take decades to pay back, which is unusual, and deliberately so. Most engineering firms are organised around the quarter.",
-  },
-  {
-    title: "Build the people, not just the asset",
-    body: "Every project transfers capability to the team that will own it. A system that only our engineers understand is a liability we have sold.",
-  },
-];
-
-const leadership = [
-  { name: "Adaeze Okonkwo", role: "Chief Executive Officer" },
-  { name: "Ruben Hallberg", role: "Chief Engineer, Infrastructure" },
-  { name: "Mei-Lin Chow", role: "Director, Industrial Technology" },
-  { name: "Tomas Vrba", role: "Director, Sustainability" },
-];
-
-const milestones = [
-  { year: "2006", event: "Founded as a structural engineering practice." },
-  { year: "2011", event: "First multi-discipline infrastructure programme." },
-  { year: "2015", event: "Industrial technology practice established." },
-  { year: "2019", event: "First continuous-operations control migration." },
-  { year: "2023", event: "Two hundredth delivered project." },
-  { year: "2026", event: "Operating across fifty markets." },
-];
+function Prose({ text }: { text: string }) {
+  return (
+    <>
+      {text.split("**").map((segment, index) =>
+        index % 2 === 1 ? (
+          <strong key={index} className="font-semibold text-ink">
+            {segment}
+          </strong>
+        ) : (
+          segment
+        ),
+      )}
+    </>
+  );
+}
 
 export default function AboutPage() {
   return (
     <main id="main">
       <PageHero
         eyebrow="About"
-        index="02"
-        title="Engineering what comes next."
-        intro="Northline was founded on a frustration: that the organisations doing the most consequential engineering work are the least well understood. We build the systems industry depends on, and we explain them properly."
+        title={about.title}
+        intro={about.heroIntro}
         image="/images/pages/about.jpg"
       />
 
       <Section id="company">
-        <SectionLabel index="01">Company</SectionLabel>
+        {/* <SectionLabel size="lg">About us</SectionLabel> */}
 
         <div className="mt-16 grid gap-12 lg:grid-cols-12">
-          <RevealOnScroll y={40} className="lg:col-span-7">
-            <p className="h3 max-w-[22ch] leading-tight">
-              We are an engineering and technology firm working on the assets
-              that everything else depends on.
+          <RevealOnScroll y={40} className="lg:col-span-7 lg:pl-14">
+            <p className="h2-sm max-w-[24ch] leading-tight">
+              <Prose text={about.intro} />
             </p>
           </RevealOnScroll>
 
           <RevealOnScroll y={32} delay={0.1} className="lg:col-span-5">
             <div className="space-y-6 text-base leading-relaxed text-ink-soft">
-              <p>
-                We work across heavy infrastructure, energy, manufacturing and
-                the industrial technology that connects them. Our projects are
-                rarely small, rarely simple, and almost always constrained by
-                an operating asset that cannot stop.
-              </p>
-              <p>
-                That constraint shapes how we work. We plan around live
-                operations, build capability into the teams who inherit what
-                we deliver, and measure ourselves on whether an asset still
-                performs in year ten.
-              </p>
+              {about.paragraphs.map((paragraph) => (
+                <p key={paragraph}>
+                  <Prose text={paragraph} />
+                </p>
+              ))}
             </div>
           </RevealOnScroll>
         </div>
+      </Section>
 
-        <ul className="mt-24 grid gap-px border border-line bg-line md:grid-cols-3">
-          {principles.map((principle, index) => (
-            <li key={principle.title} className="bg-background p-8 md:p-10">
-              <RevealOnScroll y={32} delay={index * 0.06}>
-                <span className="eyebrow text-ink-soft">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <h3 className="h3 mt-6">{principle.title}</h3>
+      <Section id="solutions" className="border-t border-line">
+        <SectionLabel size="lg">What we do</SectionLabel>
+
+        <div className="mt-16 grid gap-12 lg:grid-cols-12">
+          <RevealOnScroll y={40} className="lg:col-span-7 lg:pl-14">
+            <h2 className="h2-sm max-w-[20ch]">{partner.title}</h2>
+          </RevealOnScroll>
+
+          <RevealOnScroll y={32} delay={0.1} className="lg:col-span-5">
+            <p className="text-base leading-relaxed text-ink-soft">
+              {partner.intro}
+            </p>
+          </RevealOnScroll>
+        </div>
+
+        <ul className="mt-24 grid gap-px border border-line bg-line md:grid-cols-2 lg:grid-cols-4">
+          {partner.services.map((service) => (
+            <li key={service.title} className="bg-background p-8 md:p-10">
+              <RevealOnScroll y={32}>
+                <h3 className="h3">{service.title}</h3>
                 <p className="mt-5 text-sm leading-relaxed text-ink-soft">
-                  {principle.body}
+                  {service.description}
                 </p>
               </RevealOnScroll>
             </li>
@@ -97,64 +90,103 @@ export default function AboutPage() {
         </ul>
       </Section>
 
-      <Section id="leadership" className="border-t border-line">
-        <SectionLabel index="02">Leadership</SectionLabel>
+      <Section id="approach" className="border-t border-line">
+        <SectionLabel size="lg">Our approach</SectionLabel>
 
-        <ul className="mt-16 grid gap-px border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
-          {leadership.map((person, index) => (
-            <li key={person.name} className="bg-background p-8">
-              <RevealOnScroll y={32} delay={index * 0.05}>
-                <div
+        <div className="mt-16 grid gap-12 lg:grid-cols-12">
+          <RevealOnScroll y={40} className="lg:col-span-7 lg:pl-14">
+            <h2 className="h2-sm max-w-[20ch]">{approach.title}</h2>
+          </RevealOnScroll>
+
+          <RevealOnScroll y={32} delay={0.1} className="lg:col-span-5">
+            <p className="text-base leading-relaxed text-ink-soft">
+              {approach.intro}
+            </p>
+          </RevealOnScroll>
+        </div>
+
+        <ul className="mt-24 grid items-stretch gap-px border border-line bg-line sm:grid-cols-2 lg:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr]">
+          {approach.principles.map((principle, index) => (
+            <Fragment key={principle.index}>
+              <li className="flex flex-col justify-center bg-background p-8 md:p-10">
+                <RevealOnScroll y={32} delay={index * 0.05}>
+                  <h3 className="h3">{principle.title}</h3>
+                  <p className="mt-5 text-sm leading-relaxed text-ink-soft">
+                    {principle.description}
+                  </p>
+                </RevealOnScroll>
+              </li>
+              {index < approach.principles.length - 1 && (
+                <li
                   aria-hidden="true"
-                  className="flex aspect-square items-end bg-[radial-gradient(80%_80%_at_50%_20%,#dedcd4_0%,#f4f3ef_100%)] p-5"
+                  className="hidden items-center justify-center bg-background px-2 lg:flex"
                 >
-                  <span className="font-mono text-xs tracking-[0.2em] text-ink-soft">
-                    {person.name
-                      .split(" ")
-                      .map((part) => part[0])
-                      .join("")}
-                  </span>
-                </div>
-                <h3 className="mt-5 text-base font-medium tracking-tight">
-                  {person.name}
-                </h3>
-                <p className="mt-1.5 text-sm text-ink-soft">{person.role}</p>
+                  <Arrow strokeWidth={3.5} className="h-7 w-14 text-ink" />
+                </li>
+              )}
+            </Fragment>
+          ))}
+        </ul>
+      </Section>
+
+      <Section id="values" className="border-t border-line">
+        <SectionLabel size="lg">Our values</SectionLabel>
+
+        <ul className="mt-16 grid gap-px border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
+          {values.map((value, index) => (
+            <li
+              key={value.title}
+              className={`bg-background p-8 md:p-10 ${
+                index === values.length - 1 ? "col-span-2" : ""
+              }`}
+            >
+              <RevealOnScroll y={32} delay={index * 0.05}>
+                <h3 className="h3">{value.title}</h3>
+                <p className="mt-5 max-w-[44ch] text-sm leading-relaxed text-ink-soft">
+                  {value.description}
+                </p>
               </RevealOnScroll>
             </li>
           ))}
         </ul>
       </Section>
 
-      <Section id="milestones" className="border-t border-line">
-        <SectionLabel index="03">Milestones</SectionLabel>
+      <Section id="commitment" className="border-t border-line">
+        <SectionLabel size="lg">Our commitment</SectionLabel>
 
-        <ol className="mt-16">
-          {milestones.map((milestone, index) => (
-            <li key={milestone.year} className="border-t border-line">
-              <RevealOnScroll y={28}>
-                <div className="grid gap-4 py-8 md:grid-cols-12 md:gap-8">
-                  <span className="h3 font-mono tabular-nums md:col-span-2">
-                    {milestone.year}
-                  </span>
-                  <p className="max-w-[52ch] text-ink-soft md:col-span-8">
-                    {milestone.event}
-                  </p>
-                  <span className="eyebrow text-ink-soft md:col-span-2 md:text-right">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                </div>
-              </RevealOnScroll>
-            </li>
-          ))}
-        </ol>
+        <div className="mt-16 grid gap-12 lg:grid-cols-12">
+          <RevealOnScroll y={40} className="lg:col-span-7 lg:pl-14">
+            <h2 className="h2-sm max-w-[20ch]">{commitment.title}</h2>
+          </RevealOnScroll>
+
+          <RevealOnScroll y={32} delay={0.1} className="lg:col-span-5">
+            <div className="space-y-6 text-base leading-relaxed text-ink-soft">
+              {commitment.paragraphs.map((paragraph) => (
+                <p key={paragraph}>
+                  <Prose text={paragraph} />
+                </p>
+              ))}
+            </div>
+          </RevealOnScroll>
+        </div>
       </Section>
 
-      <PageCta
-        title="Work with the people who will still be accountable in ten years."
-        body="We take on a small number of programmes each year so that senior engineers stay close to the work. If you have a constraint that is genuinely difficult, that is where we are most useful."
-        href="/contact"
-        label="Start a conversation"
-      />
+      <Section id="slogan" className="border-t border-line">
+        <RevealOnScroll y={40}>
+          <p className="slogan mt-16">
+            <span className="text-ink">You Dream </span>
+            <span className="text-brand">We Build</span>
+          </p>
+        </RevealOnScroll>
+
+        <RevealOnScroll y={24} delay={0.1}>
+          <p className="mx-auto mt-12 max-w-[46ch] text-center text-base leading-relaxed text-ink-soft">
+            The whole of what we do, in one line.
+          </p>
+        </RevealOnScroll>
+      </Section>
+
+      <ContactFooter />
     </main>
   );
 }

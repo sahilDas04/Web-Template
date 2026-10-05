@@ -7,67 +7,65 @@ import { SectionLabel } from "@/components/ui/SectionLabel";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Start a conversation with Northline about an engineering, technology or infrastructure project.",
+    "Start a conversation with Bhardwaj Constructions about an engineering, technology or infrastructure project.",
 };
-
-const offices = [
-  { city: "Bengaluru", detail: "Engineering headquarters · India" },
-  { city: "Rotterdam", detail: "Infrastructure and water · Netherlands" },
-  { city: "Gujarat", detail: "Industrial technology · India" },
-  { city: "Stuttgart", detail: "Manufacturing and process · Germany" },
-];
 
 export default function ContactPage() {
   return (
     <main id="main">
       <PageHero
         eyebrow="Contact"
-        index="07"
         title="Let's build something great."
         intro="Tell us what you are trying to do and what is making it difficult. A senior engineer will read it, not a sales team."
+        image="/images/pages/contact.jpg"
       />
 
       <Section>
         <div className="grid gap-16 lg:grid-cols-12">
           <div className="lg:col-span-7">
-            <SectionLabel index="01">Start a conversation</SectionLabel>
+            <SectionLabel size="lg">Start a conversation</SectionLabel>
             <div className="mt-12">
               <ContactForm />
             </div>
           </div>
 
           <div className="lg:col-span-5">
-            <SectionLabel index="02">Offices</SectionLabel>
-            <ul className="mt-10">
-              {offices.map((office, index) => (
-                <li key={office.city} className="border-t border-line">
-                  <RevealOnScroll y={28} delay={index * 0.05}>
-                    <div className="py-5">
-                      <h2 className="text-lg font-medium tracking-tight">
-                        {office.city}
-                      </h2>
-                      <p className="mt-2 text-sm text-ink-soft">
-                        {office.detail}
-                      </p>
-                    </div>
-                  </RevealOnScroll>
-                </li>
-              ))}
-            </ul>
+            <SectionLabel size="lg">Contact Details</SectionLabel>
 
-            <div className="mt-16 border border-line p-8">
+            <RevealOnScroll y={32}>
+              <div className="mt-16 border border-line p-8">
               <h2 className="h3">Prefer to talk?</h2>
               <p className="mt-4 text-sm leading-relaxed text-ink-soft">
-                For anything time critical, call the engineering office
-                directly during business hours.
+                For any query and for any question contact us.
               </p>
-              <a
-                href="tel:+918000000000"
-                className="mt-6 inline-block font-mono text-sm tracking-[0.12em] underline underline-offset-4 hover:text-ink-soft"
-              >
-                +91 80000 00000
-              </a>
-            </div>
+
+              <dl className="mt-8 space-y-6">
+                <div>
+                  <dt className="eyebrow text-ink-soft">Phone</dt>
+                  <dd className="mt-3">
+                    <a
+                      href="tel:+918000000000"
+                      className="font-mono text-sm tracking-[0.12em] underline underline-offset-4 hover:text-ink-soft"
+                    >
+                      +91 80000 00000
+                    </a>
+                  </dd>
+                </div>
+
+                <div>
+                  <dt className="eyebrow text-ink-soft">Email</dt>
+                  <dd className="mt-3">
+                    <a
+                      href="mailto:hello@bhardwajconstructions.example"
+                      className="font-mono text-sm tracking-[0.12em] underline underline-offset-4 hover:text-ink-soft"
+                    >
+                      hello@bhardwajconstructions.example
+                    </a>
+                  </dd>
+                </div>
+              </dl>
+              </div>
+            </RevealOnScroll>
           </div>
         </div>
       </Section>

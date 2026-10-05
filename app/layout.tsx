@@ -19,17 +19,17 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://example.com"),
   title: {
-    default: "Northline — Engineering What Comes Next",
-    template: "%s — Northline",
+    default: "Bhardwaj Constructions — You Dream We Build.",
+    template: "%s — Bhardwaj Constructions",
   },
   description:
-    "Northline builds systems, platforms and industrial technology for infrastructure, energy and advanced manufacturing.",
+    "Bhardwaj Constructions builds systems, platforms and industrial technology for infrastructure, energy and advanced manufacturing.",
   openGraph: {
     type: "website",
-    title: "Northline — Engineering What Comes Next",
+    title: "Bhardwaj Constructions — You Dream We Build.",
     description:
       "Systems, platforms and industrial technology built for scale.",
-    siteName: "Northline",
+    siteName: "Bhardwaj Constructions",
   },
   robots: { index: true, follow: true },
 };

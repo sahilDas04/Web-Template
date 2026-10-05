@@ -1,10 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { useLayoutEffect, useRef } from "react";
 import { gsap, prefersReducedMotion, ScrollTrigger } from "@/lib/gsap";
 import { ease, heroTimeline, stagger } from "@/lib/animations/config";
-import { Arrow } from "@/components/ui/Arrow";
 import type { HeroSlide } from "@/data/hero";
 
 export function HeroContent({
@@ -117,23 +115,12 @@ function HeroSlideBody({ slide }: { slide: HeroSlide }) {
         </span>
       </h1>
 
-      <div className="mt-8 flex flex-col gap-8 md:mt-10 md:flex-row md:items-end md:justify-between">
-        <p
-          data-hero-item
-          className="max-w-[54ch] text-base leading-relaxed text-white/80 md:text-lg"
-        >
-          {slide.body}
-        </p>
-
-        <Link
-          href={slide.cta.href}
-          data-hero-item
-          className="group inline-flex w-fit shrink-0 items-center gap-3 rounded-full bg-white px-7 py-4 text-sm font-semibold text-brand transition-colors duration-300 hover:bg-accent hover:text-brand-deep"
-        >
-          {slide.cta.label}
-          <Arrow className="transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1" />
-        </Link>
-      </div>
+      <p
+        data-hero-item
+        className="mt-8 max-w-[54ch] text-base leading-relaxed text-white/80 md:text-lg"
+      >
+        {slide.body}
+      </p>
     </div>
   );
 }

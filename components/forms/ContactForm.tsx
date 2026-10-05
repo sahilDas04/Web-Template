@@ -4,11 +4,10 @@ import { useState } from "react";
 import { Arrow } from "@/components/ui/Arrow";
 
 const projectTypes = [
-  "New build",
-  "Expansion or retrofit",
-  "Asset review",
-  "Technical advisory",
-  "Something else",
+  "Civil Work",
+  "Electric Work",
+  "Water Pipeline and Plumbing Work",
+  "Material Supply",
 ];
 
 type Status = "idle" | "sending" | "sent" | "error";
@@ -93,17 +92,7 @@ export function ContactForm() {
         </label>
 
         <label className="block">
-          <span className="eyebrow text-ink-soft">Company</span>
-          <input
-            name="company"
-            autoComplete="organization"
-            placeholder="Organisation"
-            className={fieldClass}
-          />
-        </label>
-
-        <label className="block">
-          <span className="eyebrow text-ink-soft">Project type</span>
+          <span className="eyebrow text-ink-soft">What Type of Solution You Want ?</span>
           <select name="projectType" required defaultValue="" className={fieldClass}>
             <option value="" disabled>
               Select one

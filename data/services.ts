@@ -1,3 +1,8 @@
+export type MaterialCategory = {
+  title: string;
+  capabilities: string[];
+};
+
 export type Service = {
   slug: string;
   index: string;
@@ -5,82 +10,116 @@ export type Service = {
   tagline: string;
   description: string;
   capabilities: string[];
+  materialCategories?: MaterialCategory[];
+  image: string;
+  imageAlt: string;
 };
 
 export const services: Service[] = [
   {
-    slug: "engineering",
+    slug: "CivilWorks",
     index: "01",
-    title: "Engineering",
-    tagline: "Structural and mechanical systems built to carry load for decades.",
+    title: "Civil Works",
+    tagline: "Building Strong Foundations",
     description:
-      "We design and deliver the physical backbone of heavy industry — from structural steel and process plants to bespoke machinery that runs continuously under extreme conditions.",
+      "We deliver complete civil construction and infrastructure solutions, from foundations and structural work to finishing and site development.",
     capabilities: [
-      "Structural design and analysis",
-      "Process plant engineering",
-      "Heavy fabrication management",
-      "Seismic and wind engineering",
-      "Asset integrity and inspection",
+      "Building & RCC Construction",
+      "Foundation & Structural Work",
+      "Masonry & Plastering",
+      "Flooring & Tiling",
+      "Waterproofing & Roofing",
+      "Roads, Pavements & Drainage",
+      "Excavation & Site Development",
+      "Repair & Renovation"
     ],
+    image: "/images/services/civilwork.png",
+    imageAlt: "Civil works in progress.",
   },
   {
-    slug: "technology",
+    slug: "ElectricalWorks",
     index: "02",
-    title: "Technology",
-    tagline: "Industrial software and control platforms that hold up in the field.",
+    title: "Electrical Works",
+    tagline: "Powering Projects with Confidence.",
     description:
-      "Our technology practice builds the control rooms, telemetry layers and industrial software that operators depend on when conditions are at their worst.",
+      "We provide safe and efficient electrical installation solutions for buildings, commercial facilities, industrial sites, and infrastructure projects.",
     capabilities: [
-      "SCADA and control systems",
-      "Industrial IoT telemetry",
-      "Predictive maintenance models",
-      "Edge compute and networking",
-      "Systems integration and commissioning",
+      "Electrical Wiring & Installation",
+      "LT Electrical Systems",
+      "Panels & Distribution Boards",
+      "Cable Laying & Cable Tray",
+      "Earthing & Grounding",
+      "Lighting & Street Lighting",
+      "Industrial Electrical Work",
+      "Equipment & Motor Connections",
+      "Electrical Maintenance",
     ],
+    image: "/images/services/electricalwork.png",
+    imageAlt: "Electrical works in progress.",
   },
   {
-    slug: "infrastructure",
+    slug: "WaterPipelineWorks",
     index: "03",
-    title: "Infrastructure",
-    tagline: "Transport, utilities and civic networks that communities outgrow.",
+    title: "Water Pipeline Works",
+    tagline: "Reliable Water Infrastructure",
     description:
-      "We plan and construct the networks that cities and industries run on — designed for capacity growth, maintainability and a service life measured in generations.",
+      "We provide complete water pipeline installation and infrastructure solutions, from excavation and pipe laying to testing and commissioning.",
     capabilities: [
-      "Transport corridor engineering",
-      "Water and utility networks",
-      "Rail and transit systems",
-      "Geotechnical and survey",
-      "Programme and construction management",
+      "Water Supply Pipelines",
+      "Underground & Overhead Pipelines",
+      "HDPE, PVC, CPVC & GI Pipelines",
+      "Pipeline Excavation & Laying",
+      "Pipe Jointing & Fittings",
+      "Valves & Pump Connections",
+      "Water Tank Connections",
+      "Pressure & Leakage Testing",
+      "Pipeline Repair & Maintenance"
     ],
+    image: "/images/services/waterwork.png",
+    imageAlt: "Water pipeline works in progress.",
   },
   {
-    slug: "digital",
+    slug: "MaterialSupply",
     index: "04",
-    title: "Digital",
-    tagline: "Data layers and digital twins that make physical assets legible.",
+    title: "Material Supply",
+    tagline: "Quality Materials, Delivered to Your Project",
     description:
-      "We model real assets as living digital systems so operators can see failures before they happen and plan interventions with evidence instead of intuition.",
-    capabilities: [
-      "Digital twin development",
-      "Geospatial and BIM platforms",
-      "Data infrastructure and pipelines",
-      "Operational dashboards",
-      "Simulation and scenario planning",
+      "We supply a wide range of construction, electrical, and water pipeline materials to support projects from procurement to completion. Our material supply service helps clients simplify sourcing and maintain continuity at the project site.",
+    capabilities: [],
+    materialCategories: [
+      {
+        title: "Civil Materials",
+        capabilities: [
+          "Cement, Sand & Aggregates",
+          "Bricks & Blocks",
+          "TMT Steel & Structural Materials",
+          "Tiles & Flooring Materials",
+          "Construction & Finishing Materials"
+          ],
+      },
+      {
+        title: "Electric Materials",
+        capabilities: [
+          "Wires & Cables",
+          "Electrical Panels & Accessories",
+          "MCBs, MCCBs & Distribution Equipment",
+          "Conduits & Cable Trays",
+          "Switches, Sockets & Lighting Equipment",
+          "Earthing Materials"
+        ],
+      },
+      {
+        title: "Pipeline Materials",
+        capabilities: [
+          "HDPE, PVC, CPVC & GI Pipes",
+          "DI Pipes & Fittings",
+          "Valves & Pipe Accessories",
+          "Pumps & Water System Components",
+          "Flanges, Bends, Tees & Couplings"
+        ],
+      },
     ],
-  },
-  {
-    slug: "consulting",
-    index: "05",
-    title: "Consulting",
-    tagline: "Independent technical judgement on decisions that are expensive to reverse.",
-    description:
-      "We advise owners and operators on feasibility, risk and long-horizon strategy — bringing engineering evidence to board-level decisions before capital is committed.",
-    capabilities: [
-      "Feasibility and options appraisal",
-      "Asset and portfolio strategy",
-      "Risk and compliance assessment",
-      "Decarbonisation roadmaps",
-      "Independent technical review",
-    ],
+    image: "/images/services/materialSupply.png",
+    imageAlt: "Construction materials supplied for a project.",
   },
 ];

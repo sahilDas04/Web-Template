@@ -18,7 +18,6 @@ export function Hero() {
   );
 
   const next = useCallback(() => setActive((i) => (i + 1) % count), [count]);
-  const prev = useCallback(() => setActive((i) => (i - 1 + count) % count), [count]);
 
   // Autoplay. Pauses on hover/focus and is disabled under reduced motion.
   useEffect(() => {
@@ -89,48 +88,6 @@ export function Hero() {
           ))}
         </div>
 
-        <div
-          data-hero-controls-item
-          className="flex items-center gap-3"
-        >
-          <span className="font-mono text-xs tracking-[0.18em] text-white/70 tabular-nums">
-            {String(active + 1).padStart(2, "0")} / {String(count).padStart(2, "0")}
-          </span>
-          <button
-            type="button"
-            onClick={prev}
-            aria-label="Previous slide"
-            className="hero-arrow"
-          >
-            <svg
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-              className="h-4 w-4"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.75"
-            >
-              <path d="M19 12H5M11 6l-6 6 6 6" strokeLinecap="round" />
-            </svg>
-          </button>
-          <button
-            type="button"
-            onClick={next}
-            aria-label="Next slide"
-            className="hero-arrow"
-          >
-            <svg
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-              className="h-4 w-4"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.75"
-            >
-              <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" />
-            </svg>
-          </button>
-        </div>
       </div>
     </section>
   );

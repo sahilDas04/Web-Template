@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef } from "react";
-import { navigation, utilityLinks } from "@/data/navigation";
+import { navigation } from "@/data/navigation";
 import { getLenis } from "@/components/providers/SmoothScrollProvider";
 import { Wordmark } from "@/components/navigation/NavLinks";
 
@@ -89,7 +89,7 @@ export function MobileMenu({
       className="fixed inset-0 z-50 flex h-[100dvh] flex-col overflow-y-auto bg-brand-deep text-white focus:outline-none lg:hidden"
     >
       <div className="flex h-[var(--nav-height)] shrink-0 items-center justify-between px-[var(--gutter)]">
-        <Link href="/" onClick={onClose} aria-label="Northline — home">
+        <Link href="/" onClick={onClose} aria-label="Bhardwaj Constructions — home">
           <Wordmark />
         </Link>
         <button
@@ -124,36 +124,6 @@ export function MobileMenu({
                   {String(index + 1).padStart(2, "0")}
                 </span>
                 <span className="h2">{item.label}</span>
-              </Link>
-
-              {item.children && (
-                <ul className="pb-4 pl-9 sm:pl-12">
-                  {item.children.map((child) => (
-                    <li key={child.href}>
-                      <Link
-                        href={child.href}
-                        onClick={onClose}
-                        className="block py-1.5 text-sm text-white/70 hover:text-accent"
-                      >
-                        {child.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </li>
-          ))}
-        </ul>
-
-        <ul className="mt-10 flex flex-wrap gap-x-7 gap-y-3 border-t border-white/15 pt-8">
-          {utilityLinks.map((item) => (
-            <li key={item.label}>
-              <Link
-                href={item.href}
-                onClick={onClose}
-                className="eyebrow text-white/70 hover:text-accent"
-              >
-                {item.label}
               </Link>
             </li>
           ))}

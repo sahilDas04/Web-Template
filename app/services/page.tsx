@@ -1,60 +1,93 @@
 import type { Metadata } from "next";
-import { PageCta, PageHero, Section } from "@/components/sections/PageHero";
+import Image from "next/image";
+import Link from "next/link";
+import { PageHero, Section } from "@/components/sections/PageHero";
 import { RevealOnScroll } from "@/components/animation/RevealText";
 import { SectionLabel } from "@/components/ui/SectionLabel";
+import { Arrow } from "@/components/ui/Arrow";
 import { services } from "@/data/services";
 
 export const metadata: Metadata = {
   title: "Services",
   description:
-    "Engineering, technology, infrastructure, digital and consulting — five disciplines delivered under one standard.",
+    "Engineering, Construction & Infrastructure Solutions — five disciplines delivered under one standard.",
 };
-
-const stats = [
-  { value: "50+", label: "Markets served" },
-  { value: "120+", label: "Projects delivered" },
-  { value: "20+", label: "Years operating" },
-  { value: "98%", label: "Client retention" },
-];
 
 export default function ServicesPage() {
   return (
     <main id="main">
       <PageHero
         eyebrow="Services"
-        index="01"
-        title="Five disciplines. One delivery standard."
-        intro="We work across the full lifecycle of an industrial asset — from the feasibility study that justifies it to the control system that runs it. Most of our projects sit across more than one discipline, because real assets do."
+        title="Construction & Infrastructure Solutions"
+        intro="We provide reliable and professional Civil, Electrical, Water Pipeline, and Material Supply solutions for residential, commercial, industrial, and infrastructure projects. From material procurement and site preparation to installation, execution, and maintenance, we provide end-to-end support tailored to project requirements."
         image="/images/pages/services.jpg"
       />
 
       <Section>
-        <SectionLabel index="01">Capabilities</SectionLabel>
+        <SectionLabel>Capabilities</SectionLabel>
 
         <ul className="mt-16">
           {services.map((service) => (
-            <li key={service.slug} id={service.slug} className="border-t border-line">
+            <li
+              key={service.slug}
+              id={service.slug}
+              className="border-t border-line pt-12 pb-14"
+            >
               <RevealOnScroll y={40}>
-                <div className="group grid gap-6 py-12 md:grid-cols-12 md:gap-8">
-                  <span className="eyebrow text-ink-soft md:col-span-1">
-                    {service.index}
-                  </span>
-                  <h2 className="h2 md:col-span-5">{service.title}</h2>
+                <div className="flex items-baseline gap-5 border-b border-line pb-8">
+                  <h2 className="h2">{service.title}</h2>
+                </div>
+
+                <div className="mt-10 grid gap-10 md:grid-cols-12 md:gap-8">
+                  <div className="relative aspect-[5/3] w-[500px] max-w-full shrink-0 overflow-hidden bg-line md:col-span-6">
+                    <Image
+                      src={service.image}
+                      alt={service.imageAlt}
+                      fill
+                      sizes="500px"
+                      quality={76}
+                      className="object-cover"
+                    />
+                  </div>
+
                   <div className="md:col-span-6">
-                    <p className="max-w-[44ch] text-ink-soft">{service.tagline}</p>
-                    <p className="mt-5 max-w-[52ch] text-sm leading-relaxed text-ink-soft/80">
+                    <p className="max-w-[44ch] font-bold text-ink text-2xl">
+                      {service.tagline}
+                    </p>
+                    <p className="mt-5 max-w-[52ch] text-sm leading-relaxed text-ink-soft/80 text-lg">
                       {service.description}
                     </p>
-                    <ul className="mt-7 flex flex-wrap gap-2">
-                      {service.capabilities.map((capability) => (
-                        <li
-                          key={capability}
-                          className="border border-line px-3 py-1.5 text-xs text-ink-soft"
-                        >
-                          {capability}
-                        </li>
-                      ))}
-                    </ul>
+
+                    {service.materialCategories ? (
+                      <div className="mt-8 space-y-7">
+                        {service.materialCategories.map((category) => (
+                          <div key={category.title}>
+                            <p className="eyebrow text-ink">{category.title}</p>
+                            <ul className="mt-3 flex flex-wrap gap-2">
+                              {category.capabilities.map((capability) => (
+                                <li
+                                  key={capability}
+                                  className="border border-line px-3 py-1.5 text-xs text-ink-soft"
+                                >
+                                  {capability}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <ul className="mt-7 flex flex-wrap gap-2">
+                        {service.capabilities.map((capability) => (
+                          <li
+                            key={capability}
+                            className="border border-line px-3 py-1.5 text-xs text-ink-soft"
+                          >
+                            {capability}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                   </div>
                 </div>
               </RevealOnScroll>
@@ -63,26 +96,25 @@ export default function ServicesPage() {
         </ul>
       </Section>
 
-      <Section className="border-t border-line">
-        <SectionLabel index="02">By the numbers</SectionLabel>
-        <dl className="mt-16 grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
-          {stats.map((stat) => (
-            <RevealOnScroll key={stat.label} y={36}>
-              <div className="border-t border-line pt-8">
-                <dt className="h1 tabular-nums">{stat.value}</dt>
-                <dd className="eyebrow mt-4 text-ink-soft">{stat.label}</dd>
-              </div>
-            </RevealOnScroll>
-          ))}
-        </dl>
-      </Section>
+      <footer className="bg-brand-deep text-white">
+        <div className="mx-auto w-full max-w-[1600px] px-[var(--gutter)] py-20 md:py-28">
+          <RevealOnScroll y={36}>
+            <h2 className="h1 max-w-[24ch]">
+              Start with the problem, not the service.
+            </h2>
+          </RevealOnScroll>
 
-      <PageCta
-        title="Start with the problem, not the service."
-        body="Tell us what is failing, what is scaling, or what is not yet built. We will tell you which disciplines it actually needs — including when the answer is fewer than you expected."
-        href="/contact"
-        label="Start a conversation"
-      />
+          <RevealOnScroll y={24} delay={0.08}>
+            <Link
+              href="/about#contact"
+              className="group mt-10 inline-flex w-fit items-center gap-3 rounded-full bg-white px-7 py-4 text-sm font-semibold text-brand transition-colors duration-300 hover:bg-accent hover:text-brand-deep"
+            >
+              Start a conversation
+              <Arrow className="transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1" />
+            </Link>
+          </RevealOnScroll>
+        </div>
+      </footer>
     </main>
   );
 }

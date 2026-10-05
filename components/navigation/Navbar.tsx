@@ -3,15 +3,12 @@
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { gsap, ScrollTrigger, prefersReducedMotion } from "@/lib/gsap";
-import { navigation, utilityLinks } from "@/data/navigation";
-import { MegaMenu } from "@/components/navigation/MegaMenu";
 import { MobileMenu } from "@/components/navigation/MobileMenu";
-import { Wordmark } from "@/components/navigation/NavLinks";
+import { NavLinks, Wordmark } from "@/components/navigation/NavLinks";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [megaOpen, setMegaOpen] = useState(false);
 
   useEffect(() => {
     const trigger = ScrollTrigger.create({
@@ -55,7 +52,7 @@ export function Navbar() {
 
   // Transparent over the hero; solid brand colour once scrolled or when a
   // menu is open, so the links always sit on a known background.
-  const solid = scrolled || menuOpen || megaOpen;
+  const solid = scrolled || menuOpen;
 
   return (
     <>
@@ -65,25 +62,17 @@ export function Navbar() {
         className="nav-shell"
       >
         <div className="mx-auto flex h-[var(--nav-active)] max-w-[1600px] items-center justify-between gap-6 px-[var(--gutter)] transition-[height] duration-400 ease-[cubic-bezier(0.16,1,0.3,1)]">
-          <Link href="/" data-nav-reveal aria-label="Northline — home">
+          <Link href="/" data-nav-reveal aria-label="Bhardwaj Constructions — home">
             <Wordmark />
           </Link>
 
           <nav className="hidden lg:block" aria-label="Primary" data-nav-reveal>
-            <MegaMenu items={navigation} onOpenChange={setMegaOpen} />
+            <ul className="flex items-center gap-7">
+              <NavLinks />
+            </ul>
           </nav>
 
           <div data-nav-reveal className="flex items-center gap-6">
-            <ul className="hidden items-center gap-6 lg:flex">
-              {utilityLinks.map((item) => (
-                <li key={item.label}>
-                  <Link href={item.href} className="nav-link">
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-
             <button
               type="button"
               onClick={() => setMenuOpen((v) => !v)}
