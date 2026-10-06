@@ -1,8 +1,6 @@
 import Image from "next/image";
-import Link from "next/link";
-import { RevealOnScroll } from "@/components/animation/RevealText";
+import { RevealOnScroll } from "@/components/animation/RevealOnScroll";
 import { SectionLabel } from "@/components/ui/SectionLabel";
-import { Arrow } from "@/components/ui/Arrow";
 
 export function PageHero({
   eyebrow,
@@ -82,42 +80,6 @@ export function Section({
       className={`mx-auto w-full max-w-[1600px] px-[var(--gutter)] py-20 md:py-32 ${className}`}
     >
       {children}
-    </section>
-  );
-}
-
-export function PageCta({
-  title,
-  body,
-  href,
-  label,
-}: {
-  title: string;
-  body: string;
-  href: string;
-  label: string;
-}) {
-  return (
-    <section className="bg-brand-deep text-white">
-      <div className="mx-auto w-full max-w-[1600px] px-[var(--gutter)] py-20 md:py-28">
-        <RevealOnScroll y={36}>
-          <h2 className="h1 max-w-[22ch]">{title}</h2>
-        </RevealOnScroll>
-        <div className="mt-9 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
-          <RevealOnScroll y={24} delay={0.08}>
-            <p className="lead max-w-[52ch] text-white/75">{body}</p>
-          </RevealOnScroll>
-          <RevealOnScroll y={24} delay={0.12}>
-            <Link
-              href={href}
-              className="group inline-flex w-fit items-center gap-3 rounded-full bg-white px-7 py-4 text-sm font-semibold text-brand transition-colors duration-300 hover:bg-accent hover:text-brand-deep"
-            >
-              {label}
-              <Arrow className="transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1" />
-            </Link>
-          </RevealOnScroll>
-        </div>
-      </div>
     </section>
   );
 }

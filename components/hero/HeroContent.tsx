@@ -2,7 +2,7 @@
 
 import { useLayoutEffect, useRef } from "react";
 import { gsap, prefersReducedMotion, ScrollTrigger } from "@/lib/gsap";
-import { ease, heroTimeline, stagger } from "@/lib/animations/config";
+import { ease, stagger } from "@/lib/animations/config";
 import type { HeroSlide } from "@/data/hero";
 
 export function HeroContent({
@@ -87,7 +87,7 @@ function HeroSlideBody({ slide }: { slide: HeroSlide }) {
             ease: ease.outExpo,
           stagger: stagger.base,
         },
-          heroTimeline.subtitle,
+          1.4,
         );
     }, el);
 

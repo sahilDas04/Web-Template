@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { RevealOnScroll } from "@/components/animation/RevealText";
+import { RevealOnScroll } from "@/components/animation/RevealOnScroll";
 import { Arrow } from "@/components/ui/Arrow";
 
 const details = [
@@ -22,7 +22,7 @@ export function ContactFooter() {
         <RevealOnScroll y={36}>
           <span className="eyebrow text-white/50">Contact</span>
           <h2 className="h1 mt-6 max-w-[20ch]">
-            Talk to the people who will still be accountable in ten years.
+            Building better infrastructure starts with a conversation.
           </h2>
         </RevealOnScroll>
 

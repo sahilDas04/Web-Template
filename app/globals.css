@@ -281,8 +281,20 @@ body {
 }
 
 /* ---------------------------------------------------------------------------
+   Approach flow
+   --------------------------------------------------------------------------- */
+
+/* An inline <svg> inherits transform-origin: 0 0, so the flow arrow's scale and
+   rotation would pivot from the top-left of its own box and swing off-centre.
+   view-box puts the origin on the 24x24 viewBox centre instead. */
+.flow-arrow {
+  transform-box: view-box;
+  transform-origin: center;
+}
+
+/* ---------------------------------------------------------------------------
    Navigation
---------------------------------------------------------------------------- */
+   --------------------------------------------------------------------------- */
 
 /* Top-of-page: the header floats over the hero with a legibility scrim. */
 .nav-shell {

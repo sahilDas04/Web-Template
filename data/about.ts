@@ -6,7 +6,7 @@ export type AboutItem = {
 export const about = {
   title: "Building Infrastructure. Delivering Reliability.",
   intro:
-    "We are a **construction, and infrastructure services company** providing Civil Works, Electrical Works, Water Pipeline Solutions, and Construction Material Supply.",
+    "We are a trusted construction and infrastructure company delivering reliable solutions across Civil Works, Electrical Works, Water Pipeline Works, and Construction Material Supply. With a focus on quality, safety, and timely execution, we combine skilled workmanship, quality materials, and efficient project management to deliver projects built for lasting performance. From individual works to complete project requirements, we work closely with our clients to understand their needs and provide practical, dependable solutions from planning to execution.",
   heroIntro:
     "We combine quality materials, skilled execution, and professional project management to deliver reliable solutions tailored to our clients' requirements.",
   paragraphs: [

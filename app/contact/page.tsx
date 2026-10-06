@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { PageHero, Section } from "@/components/sections/PageHero";
 import { ContactForm } from "@/components/forms/ContactForm";
-import { RevealOnScroll } from "@/components/animation/RevealText";
+import { RevealOnScroll } from "@/components/animation/RevealOnScroll";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 
 export const metadata: Metadata = {

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { PageHero, Section } from "@/components/sections/PageHero";
-import { RevealOnScroll } from "@/components/animation/RevealText";
+import { RevealOnScroll } from "@/components/animation/RevealOnScroll";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Arrow } from "@/components/ui/Arrow";
 import { services } from "@/data/services";
@@ -24,7 +24,7 @@ export default function ServicesPage() {
       />
 
       <Section>
-        <SectionLabel>Capabilities</SectionLabel>
+        <SectionLabel align="center">Capabilities</SectionLabel>
 
         <ul className="mt-16">
           {services.map((service) => (
