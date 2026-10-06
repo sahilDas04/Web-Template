@@ -39,12 +39,12 @@ export default function ServicesPage() {
                 </div>
 
                 <div className="mt-10 grid gap-10 md:grid-cols-12 md:gap-8">
-                  <div className="relative aspect-[5/3] w-[500px] max-w-full shrink-0 overflow-hidden bg-line md:col-span-6">
+                  <div className="relative col-span-full aspect-[4/3] w-full overflow-hidden bg-line md:col-span-6 md:aspect-[5/3]">
                     <Image
                       src={service.image}
                       alt={service.imageAlt}
                       fill
-                      sizes="500px"
+                      sizes="(min-width: 1536px) 740px, (min-width: 768px) 50vw, 100vw"
                       quality={76}
                       className="object-cover"
                     />

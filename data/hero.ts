@@ -10,27 +10,27 @@ export type HeroSlide = {
 export const heroSlides: HeroSlide[] = [
   {
     src: "/images/hero/hero-1.jpg",
-    alt: "Bhardwaj Constructions engineered infrastructure at dusk",
-    eyebrow: "Engineering · Technology · Infrastructure",
+    alt: "Bhardwaj Constructions",
+    eyebrow: "Construction · Utilities · Infrastructure",
     heading: "You Dream",
     headingAccent: "We Build.",
-    body: "We design and deliver the systems that industry depends on — from heavy infrastructure to the software that runs it.",
+    body: "We believe good construction speaks for itself — years after the project is complete.",
   },
   {
     src: "/images/hero/hero-2.jpg",
-    alt: "Structural steelwork on a live Bhardwaj Constructions site",
-    eyebrow: "Since 2006",
+    alt: "Construction infrastructure",
+    eyebrow: "Construction · Civil · Infrastructure",
     heading: "You Dream",
     headingAccent: "We Build",
-    body: "Fifty markets, five disciplines and one delivery standard. Most of our projects sit across more than one, because real assets do.",
+    body: "We build what we promise — and stand behind what we build.",
   },
   {
     src: "/images/hero/hero-3.jpg",
-    alt: "Industrial plant and energy infrastructure",
-    eyebrow: "Impact & sustainability",
+    alt: "Construction infrastructure",
+    eyebrow: "Construction · Infrastructure · Project Solutions",
     heading: "You Dream",
     headingAccent: "We Build",
-    body: "We report the numbers we can defend — including the ones where we are behind. Ask us about those.",
+    body: "We focus on the details that matter today, and the performance that matters years from now.",
   },
 ];
 
